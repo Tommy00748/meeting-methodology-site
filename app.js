@@ -265,8 +265,88 @@ const LAYERS_DATA = [
     ]
   }
 ];
+const SMART_DEPLOYMENT = [
+  {
+    id: '01',
+    category: '内容',
+    title: '收敛出 3 个可持续更新的内容系列',
+    owner: '内容负责人',
+    due: '7 天内',
+    output: '系列矩阵表',
+    specific: '围绕“知识育儿、生活常识、买得起吗/AI实物”三个方向，明确每个系列的人群、内容形式、钩子与承接商品。',
+    measurable: '提交 1 份矩阵表，至少包含 3 个系列、每个系列 10 条选题、对应 1 条变现路径。',
+    achievable: '直接基于现有爆款和会议中已认可的方向先做第一版，不等完美。',
+    relevant: '解决“今天看到什么就做什么”和账号变现弱的问题。',
+    timebound: '本周内完成方案，下周开始按系列连续更新。'
+  },
+  {
+    id: '02',
+    category: '经营',
+    title: '为每个系列补齐商业闭环设计',
+    owner: '业务负责人',
+    due: '10 天内',
+    output: '闭环设计表',
+    specific: '给每个内容系列补上“流量入口、用户意图、变现商品、转化动作、复购承接”的完整链路。',
+    measurable: '至少完成 3 条闭环设计，每条闭环都要写清变现商品、植入方式、预期转化点。',
+    achievable: '优先从现有最容易承接的商品和内容形态入手，先搭可跑通的最小闭环。',
+    relevant: '对应会议里“每一件事情都需要完整商业闭环，不能有明显逻辑漏洞”的要求。',
+    timebound: '10 天内评审通过，随后进入试跑。'
+  },
+  {
+    id: '03',
+    category: '决策',
+    title: '把经营汇报改成“资源差额 + 建议动作”模板',
+    owner: '项目负责人',
+    due: '3 天内',
+    output: '周会模板',
+    specific: '所有汇报统一改成“现状做到多少、缺什么资源、建议先撬动哪里、下一步动作是什么”的结构。',
+    measurable: '输出 1 套模板，并在连续 3 次周会中至少应用 3 个真实项目案例。',
+    achievable: '直接把现有汇报表重写，不新增复杂系统。',
+    relevant: '解决“汇报停留在现状、没有形成决策输入”的问题。',
+    timebound: '3 天内模板上线，下周周会正式启用。'
+  },
+  {
+    id: '04',
+    category: '招聘',
+    title: '建立关键岗位的人才地图与招聘基准',
+    owner: '人资负责人',
+    due: '14 天内',
+    output: '人才地图',
+    specific: '针对内容策划、主播、运营、人资四类岗位，梳理学校层级、薪资带、渠道来源、能力要求和互补型画像。',
+    measurable: '形成 1 份岗位基准表，覆盖 4 类岗位、20 个市场样本、3 个优先招聘渠道。',
+    achievable: '先从公开招聘平台和现有面试样本里做对比，不等完整组织架构定稿。',
+    relevant: '对应会议里“脱离一线招聘是错误”和“自己招、自己带、自己管”的要求。',
+    timebound: '两周内完成调研，下轮招聘按新基准执行。'
+  },
+  {
+    id: '05',
+    category: '培训',
+    title: '补齐主播培训与通投能力的内部 SOP',
+    owner: '培训负责人',
+    due: '30 天内',
+    output: '培训手册',
+    specific: '把主播培训、基础通投、试播评估拆成可复制的流程、话术、打分表和复盘表。',
+    measurable: '完成 1 套 SOP、3 次实训、每次形成评估记录和改进点。',
+    achievable: '从“先具备入门级能力”开始，先解决没人带就抓瞎的问题。',
+    relevant: '对应会议里“这是职业技能的绝对短板，要花一年补上”的判断。',
+    timebound: '30 天内交第一版，次月开始进入循环训练。'
+  },
+  {
+    id: '06',
+    category: '调研',
+    title: '形成市场巡检 SOP，避免只凭感觉选方向',
+    owner: '市场负责人',
+    due: '14 天内',
+    output: '巡检模板',
+    specific: '把线下巡店和市场观察沉淀成固定动作，包括看平面图、看人流、看陈列、看年龄层、看竞品和记录时间段差异。',
+    measurable: '输出 1 份巡检模板，并完成至少 2 次实地记录或复盘样例。',
+    achievable: '直接按照会议里已经示范过的观察路径执行，不需要额外工具。',
+    relevant: '解决“对市场缺少一手观察，只凭印象做判断”的问题。',
+    timebound: '两周内交模板，之后所有新市场判断先过 SOP。'
+  }
+];
 // Load data
-(function(LAYERS){
+(function(LAYERS, DEPLOYMENT){
 
 // ===== RENDER LAYERS =====
 const box = document.getElementById('layersBox');
@@ -332,13 +412,31 @@ ct.setAttribute('x',500);ct.setAttribute('y',265);ct.setAttribute('text-anchor',
 ct.setAttribute('font-size','14');ct.setAttribute('font-family','DM Sans, sans-serif');ct.setAttribute('letter-spacing','6');
 ct.textContent='METHODOLOGY';svg.appendChild(ct);
 
+// ===== RENDER DEPLOYMENT =====
+const deployGrid = document.getElementById('deployGrid');
+DEPLOYMENT.forEach(item => {
+  const card = document.createElement('article');
+  card.className = 'deploy-card';
+  card.innerHTML =
+    '<div class="deploy-top"><div><div class="deploy-num">Action '+item.id+'</div><h3 class="deploy-title">'+item.title+'</h3></div><div class="deploy-tag">'+item.category+'</div></div>'+
+    '<div class="deploy-meta"><div class="deploy-pill">负责人：'+item.owner+'</div><div class="deploy-pill">时限：'+item.due+'</div><div class="deploy-pill">交付物：'+item.output+'</div></div>'+
+    '<div class="deploy-smart">'+
+      '<div class="smart-point"><div class="smart-label">Specific</div><div class="smart-text">'+item.specific+'</div></div>'+
+      '<div class="smart-point"><div class="smart-label">Measurable</div><div class="smart-text">'+item.measurable+'</div></div>'+
+      '<div class="smart-point"><div class="smart-label">Achievable</div><div class="smart-text">'+item.achievable+'</div></div>'+
+      '<div class="smart-point"><div class="smart-label">Relevant</div><div class="smart-text">'+item.relevant+'</div></div>'+
+      '<div class="smart-point"><div class="smart-label">Time-bound</div><div class="smart-text">'+item.timebound+'</div></div>'+
+    '</div>';
+  deployGrid.appendChild(card);
+});
+
 // ===== SCROLL REVEAL =====
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.08});
-document.querySelectorAll('.layer-card').forEach(c=>obs.observe(c));
+document.querySelectorAll('.layer-card,.deploy-card').forEach(c=>obs.observe(c));
 
 // ===== FLOAT NAV =====
 const dots=document.querySelectorAll('.float-dot');
-const ids=['hero','overview','L1','L2','L3','L4','L5','L6','L7','end'];
+const ids=['hero','overview','L1','L2','L3','L4','L5','L6','L7','deploy','end'];
 window.addEventListener('scroll',()=>{
   let cur=0;
   ids.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<300)cur=i});
@@ -346,7 +444,7 @@ window.addEventListener('scroll',()=>{
   document.getElementById('backTop').classList.toggle('show',window.scrollY>800);
 },{passive:true});
 
-})(LAYERS_DATA);
+})(LAYERS_DATA, SMART_DEPLOYMENT);
 
 // ===== GLOBAL FUNCTIONS =====
 function toggleCard(card){
